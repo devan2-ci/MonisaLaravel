@@ -4,17 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Major extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'majors';
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'kode_jur',
-        'name',
-        'school_id'
-    ];
+    protected $guarded = [];
 
     public function school()
     {

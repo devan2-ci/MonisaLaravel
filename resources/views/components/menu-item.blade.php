@@ -78,8 +78,16 @@
 
             @foreach($menu->children as $child)
 
+                @php
+                    $href = '#';
+
+                    if (!empty($child->route) && Route::has($child->route)) {
+                        $href = route($child->route);
+                    }
+                @endphp
+
                 <a
-                    href="{{ $child->route ? route($child->route) : url($child->url) }}"
+                    href="{{ $href }}"
                     class="block px-4 py-2 rounded-md text-sm transition
                     {{ request()->routeIs($child->route)
                         ? 'bg-sky-500 text-white'
@@ -95,9 +103,16 @@
     </div>
 
 @else
+    @php
+        $href = '';
+
+        if (!empty($menu->route) && Route::has($menu->route)) {
+            $href = route($menu->route);
+        }
+    @endphp
 
     <a
-        href="{{ $menu->route ? route($menu->route) : url($menu->url) }}"
+        href="{{ $href }}"
         class="flex items-center gap-3 px-4 py-3 rounded-lg transition
         {{ $isActive
             ? 'bg-slate-800 text-white'

@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('kode_jur', 8)->unique();
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('school_id');
-            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

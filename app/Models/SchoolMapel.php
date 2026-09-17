@@ -4,16 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SchoolMapel extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'school_mapels';
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'school_id',
-        'master_mapel_id'
-    ];
+    protected $guarded = [];
 
     public function school()
     {
@@ -23,5 +20,13 @@ class SchoolMapel extends Model
     public function masterMapel()
     {
         return $this->belongsTo(MasterMapel::class, 'master_mapel_id');
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(
+            TeacherSchedule::class,
+            'school_mapel_id'
+        );
     }
 }

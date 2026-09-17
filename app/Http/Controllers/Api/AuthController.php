@@ -114,13 +114,13 @@ class AuthController extends Controller
                     'required',
                     'string',
                     'min:6',
-                    'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/'
+                    // 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/'
                 ],
                 'password' => [
                     'required',
                     'string',
-                    'min:8',
-                    'regex:/^(?=.*[A-Za-z])(?=.*\d).+$/'
+                    'min:6',
+                    // 'regex:/^(?=.*[A-Za-z])(?=.*\d).+$/'
                 ],
             ];
 
@@ -128,12 +128,12 @@ class AuthController extends Controller
                 // Username
                 'username.required' => 'Username is required',
                 'username.min'      => 'Username must be at least 6 characters',
-                'username.regex'    => 'Username must contain letters and numbers',
+                // 'username.regex'    => 'Username must contain letters and numbers',
 
                 // Password
                 'password.required' => 'Password is required',
                 'password.min'      => 'Password must be at least 8 characters',
-                'password.regex'    => 'Password must contain letters and numbers',
+                // 'password.regex'    => 'Password must contain letters and numbers',
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
@@ -173,7 +173,7 @@ class AuthController extends Controller
                 'user'    => [
                     'id' => $user->id,
                     'name' => $user->name,
-                    'role' => $user->role
+                    'role' => $user->getRoleNames()->first(),
                 ],
             ], 200);
 

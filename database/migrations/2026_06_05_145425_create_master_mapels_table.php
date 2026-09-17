@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('master_mapels', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_mapel')->unique();
+            $table->string('kode_mapel')->nullable();
             $table->string('name')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

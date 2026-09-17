@@ -12,7 +12,8 @@ class SchoolsController extends Controller
      */
     public function index()
     {
-        //
+        $schools = Schools::all();
+        return view('superadmin.school.index', compact('schools'));
     }
 
     /**
@@ -20,7 +21,7 @@ class SchoolsController extends Controller
      */
     public function create()
     {
-        //
+        return view('superadmin.school.create');
     }
 
     /**
@@ -28,7 +29,14 @@ class SchoolsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'kode_sekolah' => 'required|string|max:8|unique:schools,kode_sekolah',
+            'nama' => 'required|string|max:255',
+        ]);
+
+        Schools::create($validated);
+
+        return redirect()->route('schools.index')->with('success', 'School created successfully.');
     }
 
     /**
@@ -58,8 +66,10 @@ class SchoolsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Schools $schools)
+    public function destroy(Schools $school)
     {
-        //
+        $school->delete();
+
+        return redirect()->route('schools.index')->with('success', 'School deleted successfully.');
     }
 }

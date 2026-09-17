@@ -4,16 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MasterMapel extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'master_mapels';
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'kode_mapel',
-        'name'
-    ];
+    protected $guarded = [];
 
     public function schoolMapels()
     {

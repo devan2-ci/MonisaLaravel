@@ -4,51 +4,40 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\Village;
 
 class Schools extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'schools';
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'kode_sekolah',
-        'nama',
-        'alamat_lengkap',
-        'provinsi',
-        'kota_kabupaten',
-        'kecamatan',
-        'kelurahan',
-        'kode_pos',
-        'latitude',
-        'longitude',
-        'no_telepon',
-        'email',
-        'link_website',
-        'photo'
-    ];
+    protected $guarded = [];
 
-    public function galleries()
+    public function province()
     {
-        return $this->hasMany(SchoolGalleries::class, 'school_id');
+        return $this->belongsTo(Province::class, 'province_id');
     }
 
-    public function socialMedia()
+    public function city()
     {
-        return $this->hasMany(SchoolSocialMedia::class, 'school_id');
+        return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
+
+    public function village()
+    {
+        return $this->belongsTo(Village::class, 'village_id');
     }
 
     public function majors()
     {
-        return $this->hasMany(Major::class, 'school_id');
-    }
-
-    public function schoolMapels()
-    {
-        return $this->hasMany(SchoolMapel::class, 'school_id');
-    }
-
-    public function facilities()
-    {
-        return $this->hasMany(Facilities::class, 'school_id');
+        return $this->hasMany(SchoolMajor::class);
     }
 }

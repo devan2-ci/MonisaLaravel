@@ -69,7 +69,9 @@
     <!-- Menu -->
     <nav class="p-3 overflow-y-auto h-[calc(100vh-64px)]">
         @php
-        $roleIds = [1];
+
+        $user = auth()->user();
+        $roleIds = $user->roles->pluck('id')->toArray();
 
         $menus = \App\Models\Menu::query()
             ->whereNull('parent_id')
@@ -95,5 +97,30 @@
         @endforeach
 
     </nav>
+
+    <div class="border-t border-slate-800 p-4">
+        <form
+            action="{{ route('auth.logout') }}"
+            method="POST"
+            >
+            @csrf
+
+            <button
+                type="submit"
+                onclick="return confirm('Yakin ingin logout?')"
+                class="w-full flex items-center gap-3 rounded-lg px-4 py-3 text-slate-400 hover:bg-red-600 hover:text-white transition">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span x-show="sidebarOpen">
+
+                    Logout
+
+                </span>
+
+            </button>
+
+        </form>
+    </div>
 
 </aside>

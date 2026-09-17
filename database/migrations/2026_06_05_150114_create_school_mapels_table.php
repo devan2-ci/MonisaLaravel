@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('master_mapel_id');
             $table->foreign('master_mapel_id')->references('id')->on('master_mapels')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

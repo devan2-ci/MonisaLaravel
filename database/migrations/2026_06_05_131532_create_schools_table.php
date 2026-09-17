@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('kode_sekolah', 8)->unique();
             $table->string('nama')->nullable();
             $table->text('alamat_lengkap')->nullable();
-            $table->string('provinsi')->nullable();
-            $table->string('kota_kabupaten')->nullable();
-            $table->string('kecamatan')->nullable();
-            $table->string('kelurahan')->nullable();
+            $table->foreignId('province_id')->nullable()->constrained('indonesia_provinces')->cascadeOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('indonesia_cities')->cascadeOnDelete();
+            $table->foreignId('district_id')->nullable()->constrained('indonesia_districts')->cascadeOnDelete();
+            $table->foreignId('village_id')->nullable()->constrained('indonesia_villages')->cascadeOnDelete();
             $table->string('kode_pos')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('link_website')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

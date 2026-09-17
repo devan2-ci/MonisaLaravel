@@ -13,16 +13,26 @@ class MajorSeeder extends Seeder
      */
     public function run(): void
     {
+        Major::withTrashed()->forceDelete();
+
         Major::create([
             'kode_jur' => 'RPL',
             'name' => 'Rekayasa Perangkat Lunak',
-            'school_id' => 1
         ]);
 
         Major::create([
             'kode_jur' => 'TKJ',
             'name' => 'Teknik Komputer dan Jaringan',
-            'school_id' => 2
+        ]);
+
+        Major::create([
+            'kode_jur' => 'DKV',
+            'name' => 'Desain Komunikasi Visual',
+        ]);
+
+        Major::create([
+            'kode_jur' => 'TL',
+            'name' => 'Teknik Logistik',
         ]);
     }
 }

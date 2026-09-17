@@ -4,17 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SchoolGalleries extends Model
+class SchoolGallery extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'school_galleries';
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'name',
-        'link',
-        'school_id'
-    ];
+    protected $guarded = [];
 
     public function school()
     {

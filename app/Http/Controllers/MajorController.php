@@ -12,7 +12,9 @@ class MajorController extends Controller
      */
     public function index()
     {
-        //
+        $majors = Major::latest()->paginate(5);
+
+        return view('superadmin.major.index', compact('majors'));
     }
 
     /**
@@ -20,7 +22,7 @@ class MajorController extends Controller
      */
     public function create()
     {
-        //
+        return view('superadmin.major.create');
     }
 
     /**
@@ -28,7 +30,14 @@ class MajorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'kode_jur' => 'nullable|string|max:10',
+        ]);
+
+        Major::create($validated);
+
+        return redirect()->route('majors.index')->with('success', 'Jurusan created successfully.');
     }
 
     /**
@@ -44,7 +53,7 @@ class MajorController extends Controller
      */
     public function edit(Major $major)
     {
-        //
+        return view('superadmin.major.edit', compact('major'));
     }
 
     /**
@@ -52,7 +61,14 @@ class MajorController extends Controller
      */
     public function update(Request $request, Major $major)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'kode_jur' => 'nullable|string|max:10',
+        ]);
+
+        $major->update($validated);
+
+        return redirect()->route('majors.index')->with('success', 'Jurusan updated successfully.');
     }
 
     /**
@@ -60,6 +76,8 @@ class MajorController extends Controller
      */
     public function destroy(Major $major)
     {
-        //
+        $major->delete();
+
+        return redirect()->route('majors.index')->with('success', 'Jurusan deleted successfully.');
     }
 }

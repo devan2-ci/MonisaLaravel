@@ -19,17 +19,17 @@ class UserSeeder extends Seeder
 
     private function createSuperAdminUser(): void
     {
-        User::create([
+        $user = User::create([
             'name' => 'Devan Eka',
             'gender' => 'male',
-            'phone' => '0895801108988',
-            'email' => 'devanprasetian@gmail.com',
+            'phone' => '08123456789',
+            'email' => 'devan@gmail.com',
             'email_verified_at' => now(),
-            'username' => 'devanprasetian@gmail.com',
+            'username' => 'devanp@gmail.com',
             'password' => Hash::make('Eef0w4tn')
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => 'Risky Dwi',
             'gender' => 'female',
             'phone' => '081234567890',
@@ -38,6 +38,8 @@ class UserSeeder extends Seeder
             'username' => 'Risky123',
             'password' => Hash::make('risky123')
         ]);
+
+        $user->assignRole('superadmin');
 
         User::create([
             'name' => 'Jhon Doe',

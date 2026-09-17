@@ -9,13 +9,7 @@ class SchoolSocialMedia extends Model
 {
     use HasFactory;
     protected $table = 'school_social_media';
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'name',
-        'link',
-        'type',
-        'school_id'
-    ];
+    protected $guarded = [];
 
     public function school()
     {

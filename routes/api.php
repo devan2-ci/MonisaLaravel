@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Parent\AttendanceController as ParentAttendanceController;
+use App\Http\Controllers\Api\Student\AttendanceController as StudentAttendanceController;
+use App\Http\Controllers\Api\Teacher\AttendanceController as TeacherAttendanceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('welcome', function(){
@@ -18,7 +21,19 @@ Route::prefix('auth')->group(function(){
     Route::get('profile', [AuthController::class, 'profile'])->middleware('auth:sanctum')->name('profile');
 });
 
-// PR API
-// 1. Buat list venue dengan search by nama (first: buat migration, seeder)
-// 2. Buat list class event tanpa middleware (first: buat migration, seeder)
-// 3. Buat detail class
+Route::prefix('student')->group(function(){
+    // Core Authentication
+    Route::get('attendances',[StudentAttendanceController::class, 'index'])->middleware('auth:sanctum')->name('attendance.index');
+    Route::post('attendances',[StudentAttendanceController::class, 'store'])->middleware('auth:sanctum')->name('attendance.store');
+});
+
+Route::prefix('teacher')->group(function(){
+    // Core Authentication
+    Route::get('attendances',[TeacherAttendanceController::class, 'index'])->middleware('auth:sanctum')->name('attendance.index');
+});
+
+Route::prefix('parent')->group(function(){
+    // Core Authentication
+    Route::get('attendances',[ParentAttendanceController::class, 'index'])->middleware('auth:sanctum')->name('attendance.index');
+    Route::get('attendances/latest',[ParentAttendanceController::class, 'latest'])->middleware('auth:sanctum')->name('attendance.latest');
+});

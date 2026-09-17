@@ -181,6 +181,334 @@
       ]
     },
     {
+      "name": "Attendence",
+      "item": [
+        {
+          "name": "History",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/student/attendances",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "student",
+                "attendances"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hadir",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|Oo9QtTq99bchaobzMrKnHC9BoOQX2nugUXIJedqpd8079279",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "qr_code",
+                  "value": "ROMBEL-FE2DXUKJPZBIS79ZMULM",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "hadir",
+                  "type": "text"
+                },
+                {
+                  "key": "lampiran",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "keterangan",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/student/attendances",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "student",
+                "attendances"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Izin",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|Oo9QtTq99bchaobzMrKnHC9BoOQX2nugUXIJedqpd8079279",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "qr_code",
+                  "value": "ROMBEL-FE2DXUKJPZBIS79ZMULM",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "izin",
+                  "type": "text"
+                },
+                {
+                  "key": "lampiran",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "keterangan",
+                  "value": "Keperluan Keluarga",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/student/attendances",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "student",
+                "attendances"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sakit",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|Oo9QtTq99bchaobzMrKnHC9BoOQX2nugUXIJedqpd8079279",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "qr_code",
+                  "value": "ROMBEL-FE2DXUKJPZBIS79ZMULM",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "sakit",
+                  "type": "text"
+                },
+                {
+                  "key": "lampiran",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "keterangan",
+                  "value": "Sakit",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/student/attendances",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "student",
+                "attendances"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Teacher Attendance",
+      "item": [
+        {
+          "name": "Index",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/teacher/attendances",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "teacher",
+                "attendances"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Parent Attendance",
+      "item": [
+        {
+          "name": "Index",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/parent/attendances",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "parent",
+                "attendances"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Latest",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/parent/attendances/latest",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "parent",
+                "attendances"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Welcome",
       "request": {
         "method": "GET",
