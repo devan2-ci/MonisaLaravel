@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rombel;
+use App\Models\SchoolLevel;
 use App\Models\SchoolMajor;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -45,7 +46,9 @@ class RombelController extends Controller
 
         $schoolMajors = SchoolMajor::with('major')->where('school_id', $school->id)->get();
 
-        return view('admin.rombels.create', compact('school','teachers','schoolMajors'));
+        $schoolLevels = SchoolLevel::where('school_type_id', $school->school_type_id)->orderBy('id')->get();
+
+        return view('admin.rombels.create', compact('school','teachers','schoolMajors','schoolLevels'));
     }
 
     /**
@@ -55,11 +58,13 @@ class RombelController extends Controller
     {
         $school = $this->getSchool();
 
+        $schoolLevels = SchoolLevel::where('school_type_id', $school->school_type_id)->pluck('name')->toArray();
+
         $validated = $request->validate([
             'tahun_ajaran' => 'required|string|size:9|regex:/^\d{4}\/\d{4}$/',
             'teacher_id' => 'required|exists:teachers,id',
             'school_major_id' => 'required|exists:school_majors,id',
-            'jenjang' => 'required|string|max:10',
+            'jenjang' => ['required', 'string', 'max:10', 'in:' . implode(',', $schoolLevels)],
             'name' => 'required|string|max:10',
         ]);
 
@@ -138,7 +143,9 @@ class RombelController extends Controller
 
         $schoolMajors = SchoolMajor::with('major')->where('school_id', $school->id)->get();
 
-        return view('admin.rombels.edit', compact('school','teachers','schoolMajors','rombel'));
+        $schoolLevels = SchoolLevel::where('school_type_id', $school->school_type_id)->orderBy('id')->get();
+
+        return view('admin.rombels.edit', compact('school','teachers','schoolMajors','rombel','schoolLevels'));
     }
 
     /**
@@ -152,11 +159,13 @@ class RombelController extends Controller
             abort(403, 'Anda tidak memiliki akses.');
         }
 
+        $schoolLevels = SchoolLevel::where('school_type_id', $school->school_type_id)->pluck('name')->toArray();
+
         $validated = $request->validate([
             'tahun_ajaran' => 'required|string|size:9|regex:/^\d{4}\/\d{4}$/',
             'teacher_id' => 'required|exists:teachers,id',
             'school_major_id' => 'required|exists:school_majors,id',
-            'jenjang' => 'required|string|max:10',
+            'jenjang' => ['required', 'string', 'max:10', 'in:' . implode(',', $schoolLevels)],
             'name' => 'required|string|max:10',
             'is_active' => 'required|boolean',
         ]);

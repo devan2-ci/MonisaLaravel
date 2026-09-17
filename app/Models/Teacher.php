@@ -25,9 +25,9 @@ class Teacher extends Model
         return $this->belongsTo(Schools::class, 'school_id');
     }
 
-    public function schoolMapel()
+    public function schoolMapels()
     {
-        return $this->belongsTo(SchoolMapel::class, 'school_mapel_id');
+        return $this->belongsToMany(SchoolMapel::class, 'teacher_school_mapel', 'teacher_id', 'school_mapel_id')->withTimestamps();
     }
 
     public function schedules()

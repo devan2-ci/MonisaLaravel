@@ -18,11 +18,14 @@ class StudentFactory extends Factory
     {
         $nisn = $this->faker->unique()->numerify('00#####');
         $name = $this->faker->name();
+        $no_hp = $this->faker->unique()->numerify('0###########');
+        $email = $nisn . '@monisa.com';
         $user = User::factory()->create([
-            'email' => $nisn . '@monisa.com',
+            'email' => $email,
             'password' => Hash::make($nisn),
             'name' => $name,
-            'username' => $nisn
+            'username' => $nisn,
+            'phone' => $no_hp,
         ]);
 
         $user->assignRole('student');
@@ -31,7 +34,11 @@ class StudentFactory extends Factory
             'name' => $name,
             'nis' => $this->faker->unique()->numerify('2026#####'),
             'nisn' => $nisn,
+            'email' => $email,
             'gender' => $this->faker->randomElement(['l', 'p']),
+            'tanggal_lahir' => $this->faker->date('Y-m-d', '2009-12-31'),
+            'alamat' => $this->faker->address(),
+            'no_hp' => $no_hp,
         ];
     }
 }

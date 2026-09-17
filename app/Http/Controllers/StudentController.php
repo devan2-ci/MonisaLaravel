@@ -61,13 +61,18 @@ class StudentController extends Controller
             'name' => 'required|string|max:255',
             'nis' => 'required|string|max:255|unique:students,nis',
             'nisn' => 'required|string|max:255|unique:students,nisn',
-            'gender' => 'required|in:l,p'
+            'email' => 'required|string|max:255|unique:students,email',
+            'gender' => 'required|in:l,p',
+            'tanggal_lahir' => 'nullable|date',
+            'alamat' => 'nullable|string|max:255',
+            'no_hp' => 'nullable|string|max:20|unique:students,no_hp'
         ]);
 
         $user = User::create([
             'name' => $validated['name'],
-            'email' => $validated['nisn'] . '@example.com',
+            'email' => $validated['email'],
             'password' => Hash::make($validated['nisn']),
+            'phone' => $validated['no_hp'],
         ]);
 
         $user->assignRole('student');
@@ -76,9 +81,13 @@ class StudentController extends Controller
             'name' => $validated['name'],
             'nis' => $validated['nis'],
             'nisn' => $validated['nisn'],
+            'email' => $validated['email'],
             'gender' => $validated['gender'],
             'school_id' => $school->id,
             'user_id' => $user->id,
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'alamat' => $validated['alamat'],
+            'no_hp' => $validated['no_hp'],
         ]);
 
         return redirect()->route('students.index')->with('success', 'Siswa berhasil ditambahkan.');
@@ -133,22 +142,22 @@ class StudentController extends Controller
             'name' => 'required|string|max:255',
             'nis' => 'required|string|max:255|unique:students,nis,' . $student->id,
             'nisn' => 'required|string|max:255|unique:students,nisn,' . $student->id,
-            'gender' => 'required|in:l,p'
+            'email' => 'required|string|max:255|unique:students,email,' . $student->id,
+            'gender' => 'required|in:l,p',
+            'tanggal_lahir' => 'nullable|date',
+            'alamat' => 'nullable|string',
+            'no_hp' => 'nullable|string|max:20|unique:students,no_hp,' . $student->id,
         ]);
 
         $user = $student->user;
         $user->update([
             'name' => $validated['name'],
-            'email' => $validated['nisn'] . '@example.com',
+            'email' => $validated['email'],
             'password' => Hash::make($validated['nisn']),
+            'phone' => $validated['no_hp'],
         ]);
 
-        $student->update([
-            'name' => $validated['name'],
-            'nis' => $validated['nis'],
-            'nisn' => $validated['nisn'],
-            'gender' => $validated['gender'],
-        ]);
+        $student->update($validated);
 
         return redirect()->route('students.index')->with('success', 'Siswa berhasil diperbarui.');
     }

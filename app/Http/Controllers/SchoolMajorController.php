@@ -55,15 +55,9 @@ class SchoolMajorController extends Controller
         $majors = Major::orderBy('name')->get();
 
         // Jurusan yang sudah dimiliki sekolah
-        $selectedMajorIds = SchoolMajor::where('school_id', $school->id)
-            ->pluck('major_id')
-            ->toArray();
+        $selectedMajorIds = SchoolMajor::where('school_id', $school->id)->pluck('major_id')->toArray();
 
-        return view('admin.school_majors.create', compact(
-            'school',
-            'majors',
-            'selectedMajorIds'
-        ));
+        return view('admin.school_majors.create', compact('school','majors','selectedMajorIds'));
     }
 
 
@@ -77,6 +71,8 @@ class SchoolMajorController extends Controller
         $validated = $request->validate([
             'major_ids' => 'nullable|array',
             'major_ids.*' => 'required|exists:majors,id',
+            'max_rombels' => 'nullable|array',
+            'max_rombels.*' => 'required|integer|min:1',
         ]);
 
         $selectedIds = collect($validated['major_ids'] ?? [])
@@ -84,7 +80,12 @@ class SchoolMajorController extends Controller
             ->unique()
             ->values();
 
-        DB::transaction(function () use ($school, $selectedIds) {
+        $maxRombels = collect($validated['max_rombels'] ?? [])
+            ->mapWithKeys(fn ($value, $majorId) => [
+                (int) $majorId => (int) $value
+            ]);
+
+        DB::transaction(function () use ($school, $selectedIds, $maxRombels) {
 
             /*
              * Ambil semua data, termasuk yang sudah soft delete.
@@ -99,6 +100,8 @@ class SchoolMajorController extends Controller
              * Sinkronisasi jurusan.
              */
             foreach ($selectedIds as $majorId) {
+
+                $maxRombel = $maxRombels->get($majorId, 1);
 
                 /*
                  * Kalau sudah ada record dengan major_id tersebut,
@@ -116,6 +119,10 @@ class SchoolMajorController extends Controller
                         $mainRecord->restore();
                     }
 
+                    $mainRecord->update([
+                        'max_rombels' => $maxRombel,
+                    ]);
+
                     /*
                      * Hapus permanen record duplikat.
                      */
@@ -131,6 +138,7 @@ class SchoolMajorController extends Controller
                     SchoolMajor::create([
                         'school_id' => $school->id,
                         'major_id' => $majorId,
+                        'max_rombels' => $maxRombel,
                     ]);
                 }
             }
@@ -150,9 +158,7 @@ class SchoolMajorController extends Controller
             }
         });
 
-        return redirect()
-            ->route('school_majors.index')
-            ->with('success', 'Jurusan sekolah berhasil disimpan.');
+        return redirect()->route('school_majors.index')->with('success', 'Jurusan sekolah berhasil disimpan.');
     }
 
 
@@ -180,6 +186,10 @@ class SchoolMajorController extends Controller
          */
         $majors = Major::orderBy('name')->get();
 
+        $schoolMajors = SchoolMajor::where('school_id', $school->id)
+            ->get()
+            ->keyBy('major_id');
+
         /*
          * Ambil ID jurusan yang sedang aktif di sekolah.
          */
@@ -190,6 +200,7 @@ class SchoolMajorController extends Controller
         return view('admin.school_majors.edit', compact(
             'school',
             'majors',
+            'schoolMajors',
             'selectedMajorIds'
         ));
     }
@@ -205,6 +216,8 @@ class SchoolMajorController extends Controller
         $validated = $request->validate([
             'major_ids' => 'nullable|array',
             'major_ids.*' => 'required|exists:majors,id',
+            'max_rombels' => 'nullable|array',
+            'max_rombels.*' => 'required|integer|min:1',
         ]);
 
         $selectedIds = collect($validated['major_ids'] ?? [])
@@ -212,7 +225,12 @@ class SchoolMajorController extends Controller
             ->unique()
             ->values();
 
-        DB::transaction(function () use ($school, $selectedIds) {
+        $maxRombels = collect($validated['max_rombels'] ?? [])
+            ->mapWithKeys(fn ($value, $majorId) => [
+                (int) $majorId => (int) $value
+            ]);
+
+        DB::transaction(function () use ($school, $selectedIds, $maxRombels) {
 
             /*
              * Ambil SEMUA record school_major,
@@ -228,6 +246,8 @@ class SchoolMajorController extends Controller
              * 1. Aktifkan jurusan yang dicentang.
              */
             foreach ($selectedIds as $majorId) {
+
+                $maxRombel = $maxRombels->get($majorId, 1);
 
                 if (isset($existing[$majorId])) {
 
@@ -245,6 +265,10 @@ class SchoolMajorController extends Controller
                         $mainRecord->restore();
                     }
 
+                    $mainRecord->update([
+                        'max_rombels' => $maxRombel,
+                    ]);
+
                     /*
                      * Hapus permanen duplikat.
                      */
@@ -260,6 +284,7 @@ class SchoolMajorController extends Controller
                     SchoolMajor::create([
                         'school_id' => $school->id,
                         'major_id' => $majorId,
+                        'max_rombels' => $maxRombel,
                     ]);
                 }
             }

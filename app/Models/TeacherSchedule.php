@@ -34,7 +34,7 @@ class TeacherSchedule extends Model
         return $this->belongsTo(SchoolMapel::class, 'school_mapel_id');
     }
 
-    public function LessonPeriodStart()
+    public function lessonPeriodStart()
     {
         return $this->belongsTo(
             LessonPeriod::class,
@@ -42,7 +42,7 @@ class TeacherSchedule extends Model
         );
     }
 
-    public function LessonPeriodEnd()
+    public function lessonPeriodEnd()
     {
         return $this->belongsTo(
             LessonPeriod::class,

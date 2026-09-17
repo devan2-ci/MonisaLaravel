@@ -39,7 +39,7 @@
 
             @if ($majors->count() > 0)
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
                     @foreach ($majors as $major)
 
@@ -76,6 +76,25 @@
                             </div>
 
                         </label>
+
+                        {{-- maks rombel --}}
+                        <div class="mt-4">
+                            <label 
+                                for="max_rombels_{{ $major->id }}"
+                                class="mb-2 block text-sm font-medium text-gray-700"
+                            >
+                                Maksimal Kelas/Rombel
+                            </label>
+
+                            <input 
+                                type="number"
+                                id="max_rombels_{{ $major->id }}"
+                                name="max_rombels[{{ $major->id }}]"
+                                min="1"
+                                value="{{ old('max_rombels.' . $major->id, $schoolMajor?->max_rombels ?? 1 )}}"
+                                class="w-full rounded-xl border-gray-300 px-4 py-2.5 focus:border-indigo-500 focus:ring-indigo-500"
+                            >
+                        </div>
 
                     @endforeach
 

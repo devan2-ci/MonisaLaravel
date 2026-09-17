@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Parent\AttendanceController as ParentAttendanceController;
+use App\Http\Controllers\Api\parent\ParentHomeController;
 use App\Http\Controllers\Api\Student\AttendanceController as StudentAttendanceController;
 use App\Http\Controllers\Api\Teacher\AttendanceController as TeacherAttendanceController;
+use App\Http\Controllers\Api\teacher\TeacherHomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('welcome', function(){
@@ -30,10 +32,12 @@ Route::prefix('student')->group(function(){
 Route::prefix('teacher')->group(function(){
     // Core Authentication
     Route::get('attendances',[TeacherAttendanceController::class, 'index'])->middleware('auth:sanctum')->name('attendance.index');
+    Route::get('home',[TeacherHomeController::class, 'index'])->middleware('auth:sanctum')->name('home.index');
 });
 
 Route::prefix('parent')->group(function(){
     // Core Authentication
     Route::get('attendances',[ParentAttendanceController::class, 'index'])->middleware('auth:sanctum')->name('attendance.index');
     Route::get('attendances/latest',[ParentAttendanceController::class, 'latest'])->middleware('auth:sanctum')->name('attendance.latest');
+    Route::get('home',[ParentHomeController::class, 'index'])->middleware('auth:sanctum')->name('home.index');
 });

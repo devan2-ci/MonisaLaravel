@@ -22,6 +22,11 @@ class SchoolMapel extends Model
         return $this->belongsTo(MasterMapel::class, 'master_mapel_id');
     }
 
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'teacher_school_mapel','school_mapel_id','teacher_id')->withTimestamps();
+    }
+
     public function schedules()
     {
         return $this->hasMany(

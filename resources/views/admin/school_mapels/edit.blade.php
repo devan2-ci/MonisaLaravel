@@ -39,6 +39,26 @@
 
             @if ($mapels->count() > 0)
 
+                {{-- Pilih Semua --}}
+                <div class="mb-6 flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+
+                    <input
+                        type="checkbox"
+                        id="select_all"
+                        class="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    >
+
+                    <label
+                        for="select_all"
+                        class="cursor-pointer font-medium text-gray-700"
+                    >
+                        Pilih Semua Mata Pelajaran
+                    </label>
+
+                </div>
+
+
+                {{-- Daftar Mata Pelajaran --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
                     @foreach ($mapels as $mapel)
@@ -62,7 +82,7 @@
                                 name="master_mapel_ids[]"
                                 value="{{ $mapel->id }}"
                                 {{ $isChecked ? 'checked' : '' }}
-                                class="mt-1 h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                class="mapel-checkbox mt-1 h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                             >
 
                             <div>
@@ -137,5 +157,66 @@
     </div>
 
 </form>
+
+
+{{-- Select All Script --}}
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const selectAll = document.getElementById('select_all');
+
+        const checkboxes = document.querySelectorAll('.mapel-checkbox');
+
+
+        // Update status checkbox "Pilih Semua"
+        function updateSelectAll() {
+
+            const total = checkboxes.length;
+
+            const checked = document.querySelectorAll(
+                '.mapel-checkbox:checked'
+            ).length;
+
+            // Semua tercentang
+            selectAll.checked = total > 0 && checked === total;
+
+            // Sebagian tercentang
+            selectAll.indeterminate =
+                checked > 0 && checked < total;
+        }
+
+
+        // Klik "Pilih Semua"
+        selectAll.addEventListener('change', function () {
+
+            checkboxes.forEach(function (checkbox) {
+
+                checkbox.checked = selectAll.checked;
+
+            });
+
+            selectAll.indeterminate = false;
+        });
+
+
+        // Jika checkbox mapel diubah satu per satu
+        checkboxes.forEach(function (checkbox) {
+
+            checkbox.addEventListener('change', function () {
+
+                updateSelectAll();
+
+            });
+
+        });
+
+
+        // Cek kondisi awal saat halaman edit dibuka
+        updateSelectAll();
+
+    });
+
+</script>
 
 @endsection

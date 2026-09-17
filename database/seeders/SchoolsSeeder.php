@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Schools;
+use App\Models\SchoolType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,9 +14,11 @@ class SchoolsSeeder extends Seeder
      */
     public function run(): void
     {
+        $sma = SchoolType::where('kode', 'SMA')->firstOrFail();
         Schools::create([
             'kode_sekolah' => 'SCH001',
             'nama' => 'SMA Negeri 1 Percobaan',
+            'school_type_id' => $sma->id,
             'alamat_lengkap' => 'Jl. Percobaan No.1',
             'kode_pos' => '12345',
             'latitude' => '-7.983908',
@@ -29,6 +32,7 @@ class SchoolsSeeder extends Seeder
         Schools::create([
             'kode_sekolah' => 'SCH002',
             'nama' => 'SMA Negeri 2 Percobaan',
+            'school_type_id' => $sma->id,
             'alamat_lengkap' => 'Jl. Percobaan No.2',
             'kode_pos' => '12345',
             'latitude' => '-7.983908',

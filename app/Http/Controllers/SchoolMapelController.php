@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\MasterMapel;
 use App\Models\SchoolMapel;
+use App\Models\Teacher;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +37,111 @@ class SchoolMapelController extends Controller
         $schoolMapels = SchoolMapel::with('masterMapel')->where('school_id', $school->id)->latest()->get();
 
         return view('admin.school_mapels.index',compact('schoolMapels', 'school'));
+    }
+
+    /**
+     * Menampilkan data guru
+     */
+    public function teachers(SchoolMapel $schoolMapel)
+    {
+        $school = $this->getSchool();
+
+        if ($schoolMapel->school_id !== $school->id) {
+            abort(403, 'Anda tidak memiliki akses.');
+        }
+
+        $teachers = $schoolMapel->teachers()->orderBy('name')->get();
+
+        return view('admin.school_mapels.teachers.index',compact('school','schoolMapel','teachers'));
+    }
+
+    /**
+     * Tambah guru ke mapel
+     */
+    public function createTeacher(SchoolMapel $schoolMapel)
+    {
+        $school = $this->getSchool();
+
+        if ($schoolMapel->school_id !== $school->id) {
+            abort(403, 'Anda tidak memiliki akses.');
+        }
+
+        // Ambil semua guru dari sekolah admin yang BELUM terhubung dengan mapel ini.
+        $teachers = Teacher::where('school_id', $school->id)
+            ->whereDoesntHave('schoolMapels', function ($query) use ($schoolMapel) {
+                $query->where(
+                    'school_mapels.id',
+                    $schoolMapel->id
+                );
+            })
+            ->orderBy('name')
+            ->get();
+
+        return view('admin.school_mapels.teachers.create',compact('school','schoolMapel','teachers'));
+    }
+
+    /**
+     * Simpan guru ke mapel
+     */
+    public function storeTeacher(Request $request, SchoolMapel $schoolMapel)
+    {
+        $school = $this->getSchool();
+
+        if ($schoolMapel->school_id !== $school->id) {
+            abort(403, 'Anda tidak memiliki akses.');
+        }
+
+        $validated = $request->validate([
+            'teacher_id' => 'required|integer|exists:teachers,id',
+        ]);
+
+        $teacher = Teacher::where('id', $validated['teacher_id'])->where('school_id', $school->id)->first();
+
+        if (!$teacher) {
+            abort(
+                403,
+                'Guru tersebut bukan berasal dari sekolah Anda.'
+            );
+        }
+
+        // Cek apakah guru sudah mengajar mapel tersebut.
+        $alreadyExists = $schoolMapel
+            ->teachers()
+            ->where('teachers.id', $teacher->id)
+            ->exists();
+
+        if ($alreadyExists) {
+            return back()
+                ->withErrors([
+                    'teacher_id' =>
+                        'Guru tersebut sudah mengajar mata pelajaran ini.'
+                ])
+                ->withInput();
+        }
+
+        // Hubungkan guru dengan mapel.
+        $schoolMapel->teachers()->attach($teacher->id);
+
+        return redirect()->route('school_mapel.teachers',$schoolMapel->id)->with('success','Guru berhasil ditambahkan ke mata pelajaran.');
+    }
+
+    /**
+     * Lepas guru dari mapel
+     */
+    public function destroyTeacher(SchoolMapel $schoolMapel, Teacher $teacher)
+    {
+        $school = $this->getSchool();
+
+        if (
+            $schoolMapel->school_id !== $school->id ||
+            $teacher->school_id !== $school->id
+        ) {
+            abort(403, 'Anda tidak memiliki akses.');
+        }
+
+        $schoolMapel->teachers()->detach($teacher->id);
+
+        return redirect()->route('school_mapel.teachers',$schoolMapel->id)->with('success','Guru berhasil dihapus dari mata pelajaran.');
     }
 
     /**

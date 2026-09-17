@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('school_majors', function (Blueprint $table) {
+        Schema::create('school_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('major_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('max_rombels')->default(1);
+            $table->string('kode', 10)->unique();
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('school_majors');
+        Schema::dropIfExists('school_types');
     }
 };

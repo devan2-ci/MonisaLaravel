@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Rombel;
+use App\Models\SchoolLevel;
 use App\Models\SchoolMajor;
 use App\Models\Schools;
 use App\Models\Teacher;
@@ -27,14 +28,19 @@ class RombelSeeder extends Seeder
 
             $schoolMajors = SchoolMajor::with('major')->where('school_id', $school->id)->get();
 
+            $schoolLevels = SchoolLevel::where('school_type_id', $school->school_type_id)->orderBy('id')->get();
+
             if (
                 $teachers->isEmpty() ||
-                $schoolMajors->isEmpty()
+                $schoolMajors->isEmpty() ||
+                $schoolLevels->isEmpty()
             ) {
                 continue;
             }
 
             $teacherIndex = 0;
+
+            $level = $schoolLevels->get($teacherIndex % $schoolLevels->count());
 
             foreach ($schoolMajors as $index => $schoolMajor) {
                 if ($teacherIndex >= $teachers->count()) {
@@ -43,11 +49,8 @@ class RombelSeeder extends Seeder
 
                 $teacher = $teachers->get($teacherIndex);
 
-                $jenjang = match ($teacherIndex % 3) {
-                    0 => '10',
-                    1 => '11',
-                    default => '12',
-                };
+
+                $jenjang = $level->name;
 
                 $name = (string) (($teacherIndex % 3) + 1);
 

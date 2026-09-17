@@ -18,7 +18,11 @@ return new class extends Migration
             $table->foreignId('school_id')->constrained()->cascadeOnDelete();
             $table->string('nis', 20)->unique()->nullable();
             $table->string('nisn', 20)->unique()->nullable();
+            $table->string('email')->unique()->nullable();
             $table->enum('gender', ['l', 'p']);
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('no_hp',20)->unique()->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
             $table->softDeletes();

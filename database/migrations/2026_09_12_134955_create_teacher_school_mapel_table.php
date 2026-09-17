@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('school_majors', function (Blueprint $table) {
+        Schema::create('teacher_school_mapel', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('major_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('max_rombels')->default(1);
+            $table->foreignId('teacher_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('school_mapel_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('school_majors');
+        Schema::dropIfExists('teacher_school_mapel');
     }
 };
