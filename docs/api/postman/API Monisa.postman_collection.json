@@ -259,6 +259,45 @@
       ]
     },
     {
+      "name": "Home Student",
+      "item":[
+        {
+          "name": "Index",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/student/home",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "student",
+                "home"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Student Attendence",
       "item": [
         {
