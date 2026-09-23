@@ -211,10 +211,72 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $user = $request->user();
+        $role = $user->getRoleNames()->first();
+
+        if ($role === 'student') {
+            $user->load([
+                'student.rombel.schoolMajor.major'
+            ]);
+        }
+
+        if ($role === 'teacher') {
+            $user->load([
+                'teacher.schoolMapels.masterMapel'
+            ]);
+        }
+
+        if ($role === 'parent') {
+            $user->load([
+                'guardian.students'
+            ]);
+        }
+
+        // DATA STUDENT
+        $student = $user->student;
+        $rombel = $student?->rombel;
+        $major = $rombel?->schoolMajor->major;
+        $jenjang = $rombel?->jenjang;
+        $namaKelas = null;
+
+        if ($rombel) {
+            if ($major) {
+                $namaKelas = trim(
+                    $jenjang . ' ' . $major->kode_jur . ' ' . $rombel->name
+                );
+            } else {
+                $namaKelas = trim(
+                    $jenjang . ' ' . $rombel->name
+                );
+            }
+        }
+
+        // Tambahkan nama kelas ke response rombel
+        if ($rombel) {
+            $rombel->setAttribute('nama_kelas', $namaKelas);
+        }
+
+        // DATA TEACHER
+        $teacher = $user->teacher;
+        $mapel = [];
+
+        if ($teacher) {
+            $mapel = $teacher->schoolMapels->map(function ($schoolMapel) {
+                return [
+                    'id' => $schoolMapel->id,
+                    'nama' => $schoolMapel->masterMapel?->name,
+                ];
+            })->values();
+        }
+
+        // DATA PARENT
+        $guardian = $user->guardian;
+        $guardianStudent = $guardian?->students;
+
         return response()->json([
             'success' => true,
             'message' => 'Profile success',
-            'data'    => $request->user()
+            'data'    => $user
         ]);
     }
 }
