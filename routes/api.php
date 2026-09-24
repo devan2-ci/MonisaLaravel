@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\parent\ParentHomeController;
 use App\Http\Controllers\Api\Student\AttendanceController as StudentAttendanceController;
 use App\Http\Controllers\Api\student\StudentHomeController;
 use App\Http\Controllers\Api\Teacher\AttendanceController as TeacherAttendanceController;
+use App\Http\Controllers\Api\teacher\TeacherClassController;
 use App\Http\Controllers\Api\teacher\TeacherHomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,8 +34,10 @@ Route::prefix('student')->group(function(){
 
 Route::prefix('teacher')->group(function(){
     // Core Authentication
-    Route::get('attendances',[TeacherAttendanceController::class, 'index'])->middleware('auth:sanctum')->name('attendance.index');
     Route::get('home',[TeacherHomeController::class, 'index'])->middleware('auth:sanctum')->name('home.index');
+    Route::get('attendances',[TeacherAttendanceController::class, 'index'])->middleware('auth:sanctum')->name('attendance.index');
+    Route::get('classes/options',[TeacherClassController::class, 'options'])->middleware('auth:sanctum')->name('class.options');
+    Route::apiResource('classes', TeacherClassController::class)->middleware('auth:sanctum');
 });
 
 Route::prefix('parent')->group(function(){

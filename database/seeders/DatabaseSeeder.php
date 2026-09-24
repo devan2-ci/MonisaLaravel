@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             GuardianSeeder::class,
             LessonPeriodSeeder::class,
             TeacherScheduleSeeder::class,
+            TeacherClassSeeder::class,
         ]);
         // run php artisan migrate:fresh --seed : untuk me-reset table dan seeder
     }
