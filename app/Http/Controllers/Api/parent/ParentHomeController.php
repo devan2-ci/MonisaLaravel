@@ -59,7 +59,7 @@ class ParentHomeController extends Controller
                 'status' => $latestAttendance->status,
                 'jam' => $latestAttendance->jam,
                 'keterangan' => $latestAttendance->keterangan,
-                'lampiran' => $latestAttendance->lampiran,
+                'lampiran' => $latestAttendance->lampiran ? asset('storage/' . $latestAttendance->lampiran) : null,
                 'rombel' => $latestAttendance->rombel
                     ? [
                         'id' => $latestAttendance->rombel->id,
@@ -68,12 +68,6 @@ class ParentHomeController extends Controller
                     : null,
             ];
         }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Response
-        |--------------------------------------------------------------------------
-        */
 
         return response()->json([
             'success' => true,
