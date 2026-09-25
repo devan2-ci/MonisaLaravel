@@ -64,6 +64,18 @@
                     {{ $schoolMajor->major->name }}
                 </h2>
 
+                <div class="mt-5">
+                    <p class="text-sm text-gray-500">
+                        Kelas
+                    </p>
+
+                    <p class="mt-1 text-lg font-semibold text-gray-800">
+                        {{ $schoolMajor->rombels->count() }}
+                        <span class="text-lg">
+                            / {{ $schoolMajor->max_rombels }}
+                        </span>
+                    </p>
+                </div>
 
                 <div class="mt-6">
 

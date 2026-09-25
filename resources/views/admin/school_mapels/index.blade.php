@@ -63,25 +63,29 @@
                             {{ $schoolMapel->masterMapel->name }}
                         </h2>
 
+                        <div class="mt-6 flex w-full flex-col gap-3">
 
-                        <div class="mt-6">
+                            <a
+                                href="{{ route('school_mapel.teachers', $schoolMapel->id) }}"
+                                class="inline-flex w-full justify-center rounded-xl bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700"
+                            >
+                                Teacher
+                            </a>
 
                             <form
                                 action="{{ route('school_mapel.destroy', $schoolMapel->id) }}"
                                 method="POST"
                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus mata pelajaran ini?')"
                             >
-
                                 @csrf
                                 @method('DELETE')
 
                                 <button
                                     type="submit"
-                                    class="rounded-xl border border-red-200 px-5 py-2 text-sm font-medium text-red-500 transition hover:bg-red-50"
+                                    class="inline-flex w-full justify-center rounded-xl border border-red-200 px-5 py-3 text-sm font-medium text-red-500 transition hover:bg-red-50"
                                 >
                                     Hapus
                                 </button>
-
                             </form>
 
                         </div>
@@ -97,7 +101,7 @@
             <div class="rounded-2xl border border-gray-200 bg-white p-10 text-center shadow-sm">
 
                 <h2 class="text-lg font-semibold text-gray-800">
-                    Belum ada mata pelajran
+                    Belum ada mata pelajaran
                 </h2>
 
                 <p class="mt-2 text-sm text-gray-500">

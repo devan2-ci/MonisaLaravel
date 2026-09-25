@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('school_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('school_mapel_id')->constrained()->cascadeOnDelete();
             $table->string('nip')->nullable()->unique();
             $table->string('nuptk')->nullable()->unique();
             $table->string('name');
+            $table->string('email')->unique()->nullable();
             $table->enum('gender', ['l','p'])->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('no_hp',20)->unique()->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function(){
         Route::resource('menus', MenuController::class);
         Route::resource('roles', RolesController::class);
         Route::resource('schools', SchoolsController::class);
+        Route::get('school/cities/{provinceId}', [SchoolsController::class, 'cities'])->name('school.cities');
+        Route::get('school/districts/{cityId}', [SchoolsController::class, 'districts'])->name('school.districts');
+        Route::get('school/villages/{districtId}', [SchoolsController::class, 'villages'])->name('school.villages');
         Route::resource('admins', AdminController::class);
         Route::resource('mapels', MasterMapelController::class);
         Route::resource('majors', MajorController::class);
@@ -47,20 +50,46 @@ Route::middleware('auth')->group(function(){
         Route::get('my-school/villages/{districtId}', [MySchoolController::class, 'villages'])->name('my-school.villages');
         Route::resource('facilities', FacilitiesController::class);
         Route::resource('students', StudentController::class);
-        Route::resource('teachers', TeacherController::class);
         Route::resource('galleries', SchoolGalleryController::class);
+        
+        // List guru
+        Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.index');
+        // Create guru - step 1
+        Route::get('/teachers/create', [TeacherController::class, 'create'])->name('teachers.create');
+        Route::post('/teachers/create/step-1', [TeacherController::class, 'storeStep1'])->name('teachers.create.step1.store');
+        // Create guru - step 2
+        Route::get('/teachers/create/step-2', [TeacherController::class, 'createStep2'])->name('teachers.create.step2');
+        Route::post('/teachers/create/step-2', [TeacherController::class, 'storeStep2'])->name('teachers.create.step2.store');
+        // Create guru - step 3
+        Route::get('/teachers/create/step-3', [TeacherController::class, 'createStep3'])->name('teachers.create.step3');
+        Route::post('/teachers/create/step-3', [TeacherController::class, 'storeStep3'])->name('teachers.create.step3.store');
+        // Edit guru
+        Route::get('/teachers/{teacher}/edit', [TeacherController::class, 'edit'])->name('teachers.edit');
+        Route::put('/teachers/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
+        // Delete
+        Route::delete('/teachers/{teacher}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
+
+        // School Mapel + add teacher at school mapel manajemen
         Route::get('/school_mapel', [SchoolMapelController::class, 'index'])->name('school_mapel.index');
         Route::get('/school_mapel/create', [SchoolMapelController::class, 'create'])->name('school_mapel.create');
         Route::post('/school_mapel', [SchoolMapelController::class, 'store'])->name('school_mapel.store');
         Route::get('/school_mapel/edit', [SchoolMapelController::class, 'edit'])->name('school_mapel.edit');
         Route::put('/school_mapel', [SchoolMapelController::class, 'update'])->name('school_mapel.update');
         Route::delete('/school_mapel/{school_mapel}', [SchoolMapelController::class, 'destroy'])->name('school_mapel.destroy');
+        Route::get('/school-mapel/{schoolMapel}/teachers',[SchoolMapelController::class, 'teachers'])->name('school_mapel.teachers');
+        Route::get('/school-mapel/{schoolMapel}/teachers/create',[SchoolMapelController::class, 'createTeacher'])->name('school_mapel.teachers.create');
+        Route::post('/school-mapel/{schoolMapel}/teachers',[SchoolMapelController::class, 'storeTeacher'])->name('school_mapel.teachers.store');
+        Route::delete('/school-mapel/{schoolMapel}/teachers/{teacher}',[SchoolMapelController::class, 'destroyTeacher'])->name('school_mapel.teachers.destroy');
+
+        // School Major
         Route::get('/school_majors', [SchoolMajorController::class, 'index'])->name('school_majors.index');
         Route::get('/school_majors/create', [SchoolMajorController::class, 'create'])->name('school_majors.create');
         Route::post('/school_majors', [SchoolMajorController::class, 'store'])->name('school_majors.store');
         Route::get('/school_majors/edit', [SchoolMajorController::class, 'edit'])->name('school_majors.edit');
         Route::put('/school_majors', [SchoolMajorController::class, 'update'])->name('school_majors.update');
         Route::delete('/school_majors/{school_major}', [SchoolMajorController::class, 'destroy'])->name('school_majors.destroy');
+
+        // Rombel, attendances, lesson-periods, teacher-schedules, guardians
         Route::resource('rombels', RombelController::class);
         Route::resource('rombels.students', RombelStudentController::class)->only(['index', 'create', 'store', 'destroy']);
         Route::resource('attendances', AttendanceController::class);

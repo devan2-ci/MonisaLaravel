@@ -181,7 +181,368 @@
       ]
     },
     {
-      "name": "Attendence",
+      "name": "Home Teacher",
+      "item":[
+        {
+          "name": "Index",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/teacher/home",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "teacher",
+                "home"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Home Parent",
+      "item":[
+        {
+          "name": "Index",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/parent/home",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "parent",
+                "home"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Teacher Class",
+      "item": [
+        {
+          "name": "History",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/teacher/classes",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "teacher",
+                "classes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Options",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/teacher/classes/options?school_mapel_id=1&tahun_ajaran=2026/2027",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "teacher",
+                "classes",
+                "options"
+              ],
+              "query": [
+                {
+                  "key": "school_mapel_id",
+                  "value": "1"
+                },
+                {
+                  "key": "tahun_ajaran",
+                  "value": "2026/2027"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Class",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "rombel_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "school_mapel_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "Bahasa Indonesia - X RPL A",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Kelas digital Bahasa Indonesia untuk X RPL A",
+                  "type": "text"
+                },
+                {
+                  "key": "tahun_ajaran",
+                  "value": "2026/2027",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/teacher/classes",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "teacher",
+                "classes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Show Class",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/teacher/classes/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "teacher",
+                "classes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Class",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "rombel_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "school_mapel_id",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "Bahasa Indonesia - X RPL A Updated",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Deskripsi kelas yang telah diperbarui",
+                  "type": "text"
+                },
+                {
+                  "key": "tahun_ajaran",
+                  "value": "2026/2027",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/teacher/classes/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "teacher",
+                "classes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Class",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "1|vU2mWiRI9iJq58jBN7MOPCVls9zaIUhcBZhtmjWud0a6bc7b",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{api}}/teacher/classes/1",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "teacher",
+                "classes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Student Attendence",
       "item": [
         {
           "name": "History",

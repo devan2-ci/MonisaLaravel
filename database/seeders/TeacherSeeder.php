@@ -26,7 +26,6 @@ class TeacherSeeder extends Seeder
 
             Teacher::factory(5)->create([
                 'school_id' => $school->id,
-                'school_mapel_id' => fn () =>$schoolMapels->random()->id,
             ]);
         }
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('school_id')->constrained()->cascadeOnDelete();
             $table->foreignId('major_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('max_rombels')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

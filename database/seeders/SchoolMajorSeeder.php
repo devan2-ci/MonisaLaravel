@@ -29,16 +29,12 @@ class SchoolMajorSeeder extends Seeder
                 ->take(rand(2, 4));
 
             foreach ($randomMajors as $major) {
-                DB::table('school_majors')->updateOrInsert(
-                    [
-                        'school_id' => $school->id,
-                        'major_id' => $major->id,
-                    ],
-                    [
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]
-                );
+                $maxRombels = rand(4, 6);
+                SchoolMajor::create([
+                    'school_id' => $school->id,
+                    'major_id' => $major->id,
+                    'max_rombels' => $maxRombels,
+                ]);
             }
         }
     }

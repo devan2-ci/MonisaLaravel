@@ -40,4 +40,9 @@ class Schools extends Model
     {
         return $this->hasMany(SchoolMajor::class);
     }
+
+    public function schoolType()
+    {
+        return $this->belongsTo(SchoolType::class);
+    }
 }

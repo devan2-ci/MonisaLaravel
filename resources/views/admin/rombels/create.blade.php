@@ -48,23 +48,21 @@
                     <select
                         name="jenjang"
                         class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500"
+                        required
                     >
 
                         <option value="">
                             Pilih Jenjang
                         </option>
 
-                        <option value="10" {{ old('jenjang') == '10' ? 'selected' : '' }}>
-                            Kelas 10
-                        </option>
-
-                        <option value="11" {{ old('jenjang') == '11' ? 'selected' : '' }}>
-                            Kelas 11
-                        </option>
-
-                        <option value="12" {{ old('jenjang') == '12' ? 'selected' : '' }}>
-                            Kelas 12
-                        </option>
+                        @foreach ($schoolLevels as $level)
+                            <option 
+                                value="{{ $level->name }}"
+                                {{ old('jenjang') == $level->name ? 'selected' : '' }}
+                            >
+                                {{ $level->name }}
+                            </option>
+                        @endforeach
 
                     </select>
 
@@ -142,6 +140,7 @@
 
                 </div>
 
+                {{-- Tahun Ajaran --}}
                 <div>
                     <label
                         for="tahun_ajaran"

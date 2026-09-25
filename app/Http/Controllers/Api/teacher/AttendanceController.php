@@ -49,7 +49,7 @@ class AttendanceController extends Controller
             'lessonPeriodStart',
             'lessonPeriodEnd',
         ])
-            ->where('school_id', $teacher->school_id)
+            // ->where('school_id', $teacher->school_id)
             ->where('teacher_id', $teacher->id)
             ->where('hari', $hari)
             ->where('is_active', true)

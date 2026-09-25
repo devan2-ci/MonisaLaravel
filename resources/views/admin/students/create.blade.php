@@ -72,7 +72,24 @@
                     @enderror
                 </div>
 
-                {{-- Jenis Kelamin --}}
+                {{-- Tanggal Lahir --}}
+                <div>
+                    <label class="mb-2 block text-sm font-medium text-gray-700">
+                        Tanggal Lahir
+                    </label>
+
+                    <input
+                        type="date"
+                        name="tanggal_lahir"
+                        value="{{ old('tanggal_lahir') }}"
+                        class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+
+                    @error('tanggal_lahir')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Gender --}}
                 <div>
                     <label class="mb-2 block text-sm font-medium text-gray-700">
                         Jenis Kelamin <span class="text-red-500">*</span>
@@ -97,6 +114,57 @@
                         <p class="mt-1 text-sm text-red-500">
                             {{ $message }}
                         </p>
+                    @enderror
+                </div>
+
+                {{-- Alamat --}}
+                <div>
+                    <label class="mb-2 block text-sm font-medium text-gray-700">
+                        Alamat
+                    </label>
+
+                    <input
+                        type="text"
+                        name="alamat"
+                        value="{{ old('alamat') }}"
+                        class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+
+                    @error('alamat')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Email --}}
+                <div>
+                    <label class="mb-2 block text-sm font-medium text-gray-700">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- No Hp --}}
+                <div>
+                    <label class="mb-2 block text-sm font-medium text-gray-700">
+                        Nomor HP
+                    </label>
+
+                    <input
+                        type="text"
+                        name="no_hp"
+                        value="{{ old('no_hp') }}"
+                        class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-indigo-500 focus:ring-indigo-500">
+
+                    @error('no_hp')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
 

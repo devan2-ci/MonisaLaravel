@@ -75,6 +75,10 @@
                         </th>
 
                         <th class="px-6 py-4 text-left text-xs font-semibold uppercase text-gray-500">
+                            Tipe
+                        </th>
+
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase text-gray-500">
                             Nama Sekolah
                         </th>
 
@@ -103,11 +107,7 @@
                         </th>
 
                         <th class="px-6 py-4 text-left text-xs font-semibold uppercase text-gray-500">
-                            Latitude
-                        </th>
-
-                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase text-gray-500">
-                            Longitude
+                            Lokasi
                         </th>
 
                         <th class="px-6 py-4 text-center text-xs font-semibold uppercase text-gray-500">
@@ -145,6 +145,10 @@
                             </td>
 
                             <td class="px-6 py-5 text-sm text-gray-700">
+                                {{ $school->schoolType->kode }}
+                            </td>
+                            
+                            <td class="px-6 py-5 text-sm text-gray-700">
                                 {{ $school->nama }}
                             </td>
 
@@ -153,19 +157,19 @@
                             </td>
 
                             <td class="px-6 py-5 text-sm text-gray-700">
-                                {{ $school->provinsi }}
+                                {{ optional($school->province)->name ?? '-' }}
                             </td>
 
                             <td class="px-6 py-5 text-sm text-gray-700">
-                                {{ $school->kota_kabupaten }}
+                                {{ optional($school->city)->name ?? '-' }}
                             </td>
 
                             <td class="px-6 py-5 text-sm text-gray-700">
-                                {{ $school->kecamatan }}
+                                {{ optional($school->district)->name ?? '-' }}
                             </td>
 
                             <td class="px-6 py-5 text-sm text-gray-700">
-                                {{ $school->kelurahan }}
+                                {{ optional($school->village)->name ?? '-' }}
                             </td>
 
                             <td class="px-6 py-5 text-sm text-gray-700">
@@ -173,11 +177,20 @@
                             </td>
 
                             <td class="px-6 py-5 text-sm text-gray-700">
-                                {{ $school->latitude }}
-                            </td>
-
-                            <td class="px-6 py-5 text-sm text-gray-700">
-                                {{ $school->longitude }}
+                                @if ($school->latitude && $school->longitude)
+                                    <a
+                                        href="https://www.google.com/maps?q={{ $school->latitude }}, {{  $school->longitude }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-2 rounded-lg bg-green-50 px-4 py-2 text-sm font-medium text-green-600 transition hover:bg-green-100"
+                                    >
+                                        Lihat Maps
+                                    </a>
+                                @else
+                                    <span class="text-sm text-gray-400">
+                                        Lokasi belum tersedia
+                                    </span>
+                                @endif
                             </td>
 
                             <td class="px-6 py-5">

@@ -25,7 +25,7 @@
         </button>
 
         <h1 class="font-semibold text-lg">
-            Dashboard
+            Dashboard {{ auth()->user()->name }}
         </h1>
 
     </div>

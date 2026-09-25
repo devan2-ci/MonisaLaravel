@@ -38,4 +38,14 @@ class Student extends Model
     {
         return $this->hasMany(Guardian::class);
     }
+
+    public function teacherClasses()
+    {
+        return $this->belongsToMany(
+            TeacherClass::class,
+            'teacher_class_students',
+            'student_id',
+            'teacher_class_id'
+        )->withPivot('joined_at');
+    }
 }

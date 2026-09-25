@@ -111,13 +111,17 @@
                                 </td>
 
                                 <td class="px-6 py-5">
-
-                                    <div>
-                                        <div class="font-semibold text-gray-800">
-                                            {{ $teacher->schoolMapel->masterMapel->name }}
-                                        </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        @forelse ($teacher->schoolMapels as $schoolMapel)
+                                            <span class="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+                                                {{ $schoolMapel->masterMapel->name ?? '-' }}
+                                            </span>
+                                        @empty
+                                            <span class="text-sm text-gray-400">
+                                                Belum ada mata pelajaran
+                                            </span>
+                                        @endforelse
                                     </div>
-
                                 </td>
 
                                 <td class="px-6 py-5">

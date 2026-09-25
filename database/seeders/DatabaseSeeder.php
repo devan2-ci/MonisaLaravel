@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ModelHasRoleSeeder::class,
             MenuSeeder::class,
             MenuRoleSeeder::class,
+            SchoolTypeSeeder::class,
             SchoolsSeeder::class,
             SchoolGallerySeeder::class,
             SchoolSocialMediaSeeder::class,
@@ -31,11 +32,13 @@ class DatabaseSeeder extends Seeder
             FacilitiesSeeder::class,
             AdminSeeder::class,
             TeacherSeeder::class,
+            TeacherSchoolMapelSeeder::class,
             RombelSeeder::class,
             StudentSeeder::class,
             GuardianSeeder::class,
             LessonPeriodSeeder::class,
             TeacherScheduleSeeder::class,
+            TeacherClassSeeder::class,
         ]);
         // run php artisan migrate:fresh --seed : untuk me-reset table dan seeder
     }

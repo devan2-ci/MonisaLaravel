@@ -21,4 +21,9 @@ class SchoolMajor extends Model
     {
         return $this->belongsTo(Major::class, 'major_id');
     }
+
+    public function rombels()
+    {
+        return $this->hasMany(Rombel::class, 'school_major_id');
+    }
 }
